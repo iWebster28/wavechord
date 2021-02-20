@@ -33,7 +33,7 @@ def getdefects(contours):
 while 1:
     # _, img = cap.read()
     os.system('fswebcam -r 224x224 --no-banner /home/pi/Desktop/frame.jpg')
-    time.sleep(0.2)
+    time.sleep(0.1)
     img = cv.imread('/home/pi/Desktop/frame.jpg', cv.IMREAD_COLOR)
     # cv.imshow("img", img)
     # cv.waitKey()
@@ -56,6 +56,7 @@ while 1:
             b = np.sqrt((far[0] - start[0]) ** 2 + (far[1] - start[1]) ** 2)
             c = np.sqrt((end[0] - far[0]) ** 2 + (end[1] - far[1]) ** 2)
             angle = np.arccos((b ** 2 + c ** 2 - a ** 2) / (2 * b * c))  #      cosine theorem
+            print("start: ", start, "end: ", end, "far:", far, "a", a, "b", b, "c", c, "angle", angle)
             if angle <= np.pi / 2:  # angle less than 90 degree, treat as fingers
                 cnt += 1
                 cv.circle(img, far, 4, [0, 0, 255], -1)
@@ -66,7 +67,25 @@ while 1:
     print("finger cnt: ", cnt)
 
     # Audio
-    root = cnt * 6
+    curr_x = start[0] # hand position
+    x_max = 640 # Screen coords
+    key_range = 49 # Range of notes to be mapped/used
+    key_max = 57 # on piano/tone generator
+
+    root = int(curr_x / x_max * (key_max - key_range) + key_range)  # Conversion factor for x-cord and 88 keys on piano
+
+    if (root in [49, 50, 51, 52, 53]):
+        #I chord - A
+        root = 49
+        print('hi')
+
+    elif (root in [54, 55]):# IV Chord - D
+        root = 54
+
+    elif (root in [56, 57]):
+        # V Chord - E
+        root = 56
+
     pa.play_note(root)
 
     cv.imshow("img", img)

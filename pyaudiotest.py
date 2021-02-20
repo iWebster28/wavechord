@@ -24,13 +24,15 @@ def play_note(root):
     V7_int = [0, 4, 7, 10]
     M7_int = [0, 4, 7, 11]
 
+    M_int = [0, 4, 7]
+
     # FN to convert 49 -> A4 
 
     # To generate Chord Degrees - Am7:
     # Am7 = nt.gen_chord_degs(49, m7_int)
     # D7 = nt.gen_chord_degs(54, V7_int)
 
-    chord_in = nt.gen_chord_degs(root, M7_int) # generate chord_in
+    chord_in = nt.gen_chord_degs(root, M_int) # generate chord_in
     # Am7 = [nt.ntof(49), nt.ntof(52), nt.ntof(56), nt.ntof(59)]
 
     samples = cd.Chord(chord_in).samples
