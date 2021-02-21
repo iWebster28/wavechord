@@ -24,3 +24,4 @@ MakeUofT2021 Project. OpenCV, Kinect, Raspberry Pi 3B+, PyAudio
 * Optional: install realvnc and use [this command](https://stackoverflow.com/questions/15816/changing-the-resolution-of-a-vnc-session-in-linux/3839759) to connect via SSH to the Pi.  
 
 * Run [finger_count.py](./finger_count.py)  
+* Moving your hand left to right over the kinect should generate I, IV, and V chords.
